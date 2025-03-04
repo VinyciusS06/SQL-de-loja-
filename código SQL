@@ -1,0 +1,282 @@
+create database Loja
+default character set utf8
+default collate utf8_general_ci;
+
+use loja;
+--- drop database loja;
+
+-- **TABELAS** --
+create table clientes(
+id int  auto_increment primary key,
+nome varchar (50),
+cpf varchar(11) unique,
+email varchar(60) unique,
+celular varchar(11) unique,
+sexo enum('M','F'),
+nascimento date,
+nacionalidade varchar(10) default 'Brasil'
+)default charset = utf8;
+
+create table produto(
+id int auto_increment primary key,
+nome varchar(20)not null,
+descricao text,
+preco decimal(10,2) not null,
+estoque int not null
+)default charset = utf8;
+
+create table pedidos(
+id int auto_increment primary key,
+cliente_id int,
+data_pedido date not null,
+total decimal(10,2),
+foreign key (cliente_id) references clientes(id)
+)default charset = utf8;
+
+create table pagamentos(
+id int auto_increment not null unique,
+pedido_id int,
+metodo varchar(10) not null,
+status varchar(10) default 'Pendente',
+  FOREIGN KEY (pedido_id) REFERENCES pedidos(id)
+)default charset = utf8;
+
+select * from produto;
+select * from clientes;
+
+
+-- **Insert dor clientes, TODOS SAO ALEATORIOS** --
+INSERT INTO produto (id,nome, descricao, preco, estoque) VALUES
+(default,'Teclado', 'Teclado mecânico RGB', 199.90, 50),
+(default,'Monitor', 'Monitor Full HD 24 polegadas', 89.90, 30),
+(default,'Headset', 'Headset gamer com microfone', 149.90, 40),
+(default,'Notebook', 'Notebook i7 16GB RAM', 4999.90, 10),
+(default,'Impressora', 'Impressora multifuncional', 799.90, 15),
+(default,'Smartphone', 'Celular Android 128GB', 2299.90, 25),
+(default,'Tablet', 'Tablet 10 polegadas 64GB', 1499.90, 20),
+(default,'HD Externo', 'HD externo 1TB USB 3.0', 349.90, 35),
+(default,'SSD', 'SSD NVMe 500GB', 399.90, 45),
+(default,'Cadeira Gamer', 'Cadeira ergonômica com apoio para os pés', 1299.90, 12),
+(default,'Placa de Vídeo', 'RTX 3060 12GB', 2699.90, 8),
+(default,'Fonte', 'Fonte 600W 80 Plus Bronze', 429.90, 22),
+(default,'Gabinete', 'Gabinete mid tower com LED', 399.90, 18),
+(default,'Memória RAM', 'Memória RAM 16GB DDR4', 359.90, 30),
+(default,'Processador', 'Ryzen 5 5600X', 999.90, 17),
+(default,'Placa-mãe', 'Placa-mãe B550M', 799.90, 13),
+(default,'Cooler', 'Cooler para CPU RGB', 249.90, 27),
+(default,'Webcam', 'Webcam Full HD 1080p', 199.90, 33),
+(default,'Microfone', 'Microfone condensador USB', 299.90, 25),
+(default,'Mousepad', 'Mousepad gamer grande', 89.90, 50),
+(default,'Roteador', 'Roteador Wi-Fi 6 dual-band', 499.90, 18),
+(default,'Controle', 'Controle sem fio para PC e Console', 349.90, 20),
+(default,'Pendrive', 'Pendrive 64GB USB 3.1', 79.90, 60),
+(default,'Cabo HDMI', 'Cabo HDMI 2.0 2 metros', 49.90, 55),
+(default,'Leitor de Cartão', 'Leitor de cartão USB 3.0', 69.90, 40),
+(default,'Suporte para Monitor', 'Suporte articulado para monitor', 199.90, 22),
+(default,'Estabilizador', 'Estabilizador 1000VA bivolt', 299.90, 12),
+(default,'No-break', 'No-break 1500VA', 999.90, 10),
+(default,'Caixa de Som', 'Caixa de som Bluetooth portátil', 189.90, 35),
+(default,'Projetor', 'Projetor Full HD 3000 lumens', 1599.90, 15),
+(default,'Smartwatch', 'Relógio inteligente com monitor cardíaco', 499.90, 25),
+(default,'Cabo USB-C', 'Cabo USB-C reforçado 1.5m', 39.90, 50),
+(default,'Hub USB', 'Hub USB 3.0 com 4 portas', 89.90, 40),
+(default,'Fone Bluetooth', 'Fone de ouvido sem fio', 199.90, 45),
+(default,'Switch', 'Switch de rede 8 portas Gigabit', 349.90, 20),
+(default,'Lâmpada Inteligente', 'Lâmpada LED Wi-Fi RGB', 99.90, 30),
+(default,'Bateria Externa', 'Power Bank 20000mAh', 249.90, 20),
+(default,'Mouse Gamer', 'Mouse gamer 16000DPI RGB', 299.90, 25),
+(default,'Câmera de Segurança', 'Câmera IP Wi-Fi HD', 399.90, 20),
+(default,'Kit Teclado e Mouse', 'Combo sem fio para escritório', 149.90, 40),
+(default,'Aquecedor de Caneca', 'Aquecedor USB para canecas', 79.90, 30),
+(default,'Carregador Sem Fio', 'Carregador wireless rápido', 129.90, 30),
+(default,'Filtro de Linha', 'Filtro de linha 5 tomadas', 69.90, 50),
+(default,'Case para HD', 'Case para HD 2.5 SATA USB 3.0', 89.90, 25),
+(default,'Ventilador USB', 'Mini ventilador USB portátil', 59.90, 35),
+(default,'Luminária LED', 'Luminária de mesa LED touch', 119.90, 25),
+(default,'Chave de Fenda Eletrônica', 'Kit chave de fenda elétrica', 199.90, 15),
+(default,'Gravador de Voz', 'Gravador de áudio digital', 349.90, 10),
+(default,'Placa de Captura', 'Placa de captura HDMI 4K', 599.90, 12),
+(default,'Adaptador Bluetooth', 'Adaptador USB Bluetooth 5.0', 49.90, 45),
+(default,'Controle Remoto Universal', 'Controle remoto universal IR', 79.90, 20),
+(default,'Etiqueta Eletrônica', 'Impressora de etiquetas térmica', 499.90, 10),
+(default,'Raspberry Pi', 'Kit Raspberry Pi 4 8GB', 899.90, 8),
+(default,'Óculos VR', 'Óculos de realidade virtual', 1599.90, 6),
+(default,'Drone', 'Drone com câmera 4K', 1999.90, 5),
+(default,'GPS Automotivo', 'GPS para carro com mapas atualizados', 599.90, 12),
+(default,'Gamepad Mobile', 'Controle para celular Bluetooth', 179.90, 30);
+
+-- INSERT DOS PRODUTOS --
+
+INSERT INTO clientes (nome, cpf, email, celular, sexo, nascimento, nacionalidade) VALUES
+('Ana Souza', '12345678901', 'ana.souza@email.com', '11987654321', 'F', '1990-05-14', 'Brasil'),
+('Carlos Silva', '23456789012', 'carlos.silva@email.com', '11976543210', 'M', '1985-09-22', 'Brasil'),
+('Mariana Costa', '34567890123', 'mariana.costa@email.com', '21987654321', 'F', '1993-07-10', 'Brasil'),
+('Rafael Lima', '45678901234', 'rafael.lima@email.com', '31987654321', 'M', '1987-03-05', 'Brasil'),
+('Fernanda Oliveira', '56789012345', 'fernanda.oliveira@email.com', '41987654321', 'F', '1995-12-18', 'Brasil'),
+('Paulo Mendes', '67890123456', 'paulo.mendes@email.com', '51987654321', 'M', '1992-06-30', 'Brasil'),
+('Juliana Rocha', '78901234567', 'juliana.rocha@email.com', '62987654321', 'F', '1994-11-25', 'Brasil'),
+('Thiago Alves', '89012345678', 'thiago.alves@email.com', '71987654321', 'M', '1989-08-19', 'Brasil'),
+('Amanda Duarte', '90123456789', 'amanda.duarte@email.com', '81987654321', 'F', '1991-04-08', 'Brasil'),
+('Gustavo Nunes', '01234567890', 'gustavo.nunes@email.com', '92987654321', 'M', '1986-10-15', 'Brasil'),
+('Beatriz Martins', '11223344556', 'beatriz.martins@email.com', '11976549876', 'F', '1997-02-14', 'Brasil'),
+('Roberto Carvalho', '22334455667', 'roberto.carvalho@email.com', '21965438765', 'M', '1980-09-23', 'Brasil'),
+('Letícia Ferreira', '33445566778', 'leticia.ferreira@email.com', '31954327654', 'F', '1999-06-05', 'Brasil'),
+('Eduardo Pereira', '44556677889', 'eduardo.pereira@email.com', '41943216543', 'M', '1978-12-12', 'Brasil'),
+('Larissa Santos', '55667788990', 'larissa.santos@email.com', '51932105432', 'F', '2000-01-01', 'Brasil'),
+('Bruno Ramos', '66778899001', 'bruno.ramos@email.com', '62921094321', 'M', '1993-07-07', 'Brasil'),
+('Patrícia Barros', '77889900112', 'patricia.barros@email.com', '71910983210', 'F', '1996-05-15', 'Brasil'),
+('Lucas Moreira', '88990011223', 'lucas.moreira@email.com', '81909872109', 'M', '1995-03-29', 'Brasil'),
+('Carla Batista', '99001122334', 'carla.batista@email.com', '91998761098', 'F', '1992-08-21', 'Brasil'),
+('Renato Medeiros', '00112233445', 'renato.medeiros@email.com', '11987650987', 'M', '1984-11-09', 'Brasil'),
+('Alice Mendes', '11223344557', 'alice.mendes@email.com', '21976549876', 'F', '2001-04-04', 'Brasil'),
+('José Fonseca', '22334455668', 'jose.fonseca@email.com', '31965438765', 'M', '1981-02-17', 'Brasil'),
+('Camila Xavier', '33445566779', 'camila.xavier@email.com', '41954327654', 'F', '1998-09-08', 'Brasil'),
+('Felipe Araújo', '44556677880', 'felipe.araujo@email.com', '51943216543', 'M', '1994-07-11', 'Brasil'),
+('Bruna Leite', '55667788991', 'bruna.leite@email.com', '62932105432', 'F', '1990-05-22', 'Brasil'),
+('Diego Costa', '66778899002', 'diego.costa@email.com', '71921094321', 'M', '1983-10-10', 'Brasil'),
+('Natália Ribeiro', '77889900113', 'natalia.ribeiro@email.com', '81910983210', 'F', '1997-12-30', 'Brasil'),
+('Fábio Teixeira', '88990011224', 'fabio.teixeira@email.com', '91909872109', 'M', '1986-01-15', 'Brasil'),
+('Andréa Guimarães', '99001122335', 'andrea.guimaraes@email.com', '11998761098', 'F', '1991-06-03', 'Brasil'),
+('Ricardo Vasconcelos', '00112233446', 'ricardo.vasconcelos@email.com', '21987650987', 'M', '1989-03-27', 'Brasil'),
+('Tatiane Lopes', '11223344558', 'tatiane.lopes@email.com', '31976549876', 'F', '1993-08-13', 'Brasil'),
+('Pedro Henrique', '22334455669', 'pedro.henrique@email.com', '41965438765', 'M', '1982-05-21', 'Brasil'),
+('Vanessa Corrêa', '33445566780', 'vanessa.correa@email.com', '51954327654', 'F', '1996-04-09', 'Brasil'),
+('Guilherme Assis', '44556677881', 'guilherme.assis@email.com', '62943216543', 'M', '1985-11-30', 'Brasil'),
+('Lorena Tavares', '55667788992', 'lorena.tavares@email.com', '71932105432', 'F', '2000-07-17', 'Brasil'),
+('Vinícius Campos', '66778899003', 'vinicius.campos@email.com', '81921094321', 'M', '1995-09-26', 'Brasil'),
+('Aline Neves', '77889900114', 'aline.neves@email.com', '91910983210', 'F', '1992-10-12', 'Brasil'),
+('Rodrigo Sales', '88990011225', 'rodrigo.sales@email.com', '11909872109', 'M', '1994-12-07', 'Brasil'),
+('Cecília Duarte', '99001122336', 'cecilia.duarte@email.com', '21998761098', 'F', '1999-03-01', 'Brasil'),
+('Wagner Matos', '00112233447', 'wagner.matos@email.com', '31987650987', 'M', '1993-07-28', 'Brasil');
+
+-- ** INSERTS DOS PEDIDOS** --
+INSERT INTO pedidos (cliente_id, data_pedido, total) VALUES
+(1, '2023-03-01', 150.00),
+(2, '2023-03-02', 200.50),
+(3, '2023-03-03', 320.75),
+(4, '2023-03-04', 450.00),
+(5, '2023-03-05', 500.25),
+(6, '2023-03-06', 75.00),
+(7, '2023-03-07', 180.50),
+(8, '2023-03-08', 230.30),
+(9, '2023-03-09', 310.00),
+(10, '2023-03-10', 420.20),
+(11, '2023-03-11', 255.75),
+(12, '2023-03-12', 195.40),
+(13, '2023-03-13', 335.80),
+(14, '2023-03-14', 478.90),
+(15, '2023-03-15', 60.00),
+(16, '2023-03-16', 150.75),
+(17, '2023-03-17', 250.50),
+(18, '2023-03-18', 370.10),
+(19, '2023-03-19', 490.00),
+(20, '2023-03-20', 520.30),
+(21, '2023-03-21', 270.50),
+(22, '2023-03-22', 310.25),
+(23, '2023-03-23', 440.70),
+(24, '2023-03-24', 500.90),
+(25, '2023-03-25', 125.80),
+(26, '2023-03-26', 175.60),
+(27, '2023-03-27', 205.20),
+(28, '2023-03-28', 300.00),
+(29, '2023-03-29', 425.40),
+(30, '2023-03-30', 110.50);
+
+-- INSERTS dos metodos --
+
+INSERT INTO pagamentos (pedido_id, metodo, status) VALUES
+(1, 'Cartão', 'Pago'),
+(2, 'Boleto', 'Pendente'),
+(3, 'Pix', 'Pago'),
+(4, 'Cartão', 'Pendente'),
+(5, 'Boleto', 'Pago'),
+(6, 'Cartão', 'Pago'),
+(7, 'Pix', 'Pendente'),
+(8, 'Boleto', 'Pago'),
+(9, 'Cartão', 'Pago'),
+(10, 'Pix', 'Pendente'),
+(11, 'Cartão', 'Pago'),
+(12, 'Boleto', 'Pendente'),
+(13, 'Pix', 'Pago'),
+(14, 'Cartão', 'Pendente'),
+(15, 'Boleto', 'Pago'),
+(16, 'Cartão', 'Pago'),
+(17, 'Pix', 'Pendente'),
+(18, 'Boleto', 'Pago'),
+(19, 'Cartão', 'Pago'),
+(20, 'Pix', 'Pendente'),
+(21, 'Cartão', 'Pago'),
+(22, 'Boleto', 'Pendente'),
+(23, 'Pix', 'Pago'),
+(24, 'Cartão', 'Pendente'),
+(25, 'Boleto', 'Pago'),
+(26, 'Cartão', 'Pago'),
+(27, 'Pix', 'Pendente'),
+(28, 'Boleto', 'Pago'),
+(29, 'Cartão', 'Pago'),
+(30, 'Pix', 'Pendente');
+
+
+ -- ** Select de cada um **--
+ SELECT * FROM CLIENTES
+ ORDER BY NOME;
+SELECT * FROM PAGAMENTOS;
+SELECT * FROM PEDIDOS;
+SELECT * FROM PRODUTO;
+
+-- SELECT de um cliente especifico --
+
+select * from clientes
+where id = '5';
+
+-- select dos clientes com sobrenome --
+
+select * from clientes
+where nome like '%Silva%';
+
+-- select dos emails que começam com 'R' junto ao nome --
+
+select nome, email from clientes
+where email like 'R%';
+
+-- select de quantos usuarios existem 
+
+select count(id) from clientes;
+
+-- select de clientes femininos
+
+SELECT * FROM clientes WHERE sexo = 'F';
+
+-- select de clientes com total de 200 ou mais
+
+SELECT * FROM pedidos WHERE total > 200.00;
+
+-- select de clientes que estao PENDENTES
+
+SELECT * FROM pagamentos WHERE status = 'Pendente';
+
+-- Select dos clientes,data e valor do pedido
+
+SELECT c.nome, p.data_pedido, p.total
+FROM clientes c
+INNER JOIN pedidos p ON c.id = p.cliente_id;
+
+-- select do cliente, fomra de pagamento e a forma paga
+
+SELECT c.nome, p.data_pedido, p.total, g.metodo, g.status
+FROM clientes c
+INNER JOIN pedidos p ON c.id = p.cliente_id
+INNER JOIN pagamentos g ON p.id = g.pedido_id;
+
+-- pedidos feitos em Março
+SELECT c.nome, p.data_pedido, p.total
+FROM clientes c
+INNER JOIN pedidos p ON c.id = p.cliente_id
+WHERE p.data_pedido BETWEEN '2023-03-01' AND '2023-03-31';
+
+
+
+
+
+
+
